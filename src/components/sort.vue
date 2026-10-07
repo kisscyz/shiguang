@@ -6,6 +6,8 @@
     </div>
 
     <div style="background: var(--background);padding-top: 40px;" class="my-animation-slide-bottom">
+      <div class="sort-page-container">
+        <div class="sort-main">
       <!-- 标签 -->
       <div class="sort-warp shadow-box" v-if="!$common.isEmpty(sort) && !$common.isEmpty(sort.labels)">
         <div v-for="(label, index) in sort.labels" :key="index"
@@ -30,6 +32,12 @@
           </div>
         </div>
       </div>
+        </div>
+        <!-- 右侧栏（与首页同一侧栏） -->
+        <div class="sort-aside">
+          <myAside @selectSort="selectSort" @selectArticle="selectArticle"></myAside>
+        </div>
+      </div>
       <!-- 页脚 -->
       <myFooter></myFooter>
     </div>
@@ -40,6 +48,7 @@
   const twoPoem = () => import( "./common/twoPoem");
   const proTag = () => import( "./common/proTag");
   const articleList = () => import( "./articleList");
+  const myAside = () => import( "./myAside");
   const myFooter = () => import( "./common/myFooter");
 
   export default {
@@ -47,6 +56,7 @@
       twoPoem,
       proTag,
       articleList,
+      myAside,
       myFooter
     },
 
@@ -141,6 +151,24 @@
               type: "error"
             });
           });
+      },
+      selectSort(sort) {
+        this.$router.push({path: '/sort', query: {sortId: sort.id}});
+      },
+      selectArticle(articleSearch) {
+        this.pagination = {
+          current: 1,
+          size: 10,
+          total: 0,
+          searchKey: "",
+          sortId: this.$route.query.sortId,
+          labelId: null,
+          articleSearch: articleSearch
+        };
+        this.articles.splice(0, this.articles.length);
+        this.$nextTick(() => {
+          this.getArticles();
+        });
       }
     }
   }
@@ -148,9 +176,28 @@
 
 <style scoped>
 
-  .sort-warp {
+  .sort-page-container {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    padding: 0 20px 40px 20px;
+    margin: 0 auto;
+    flex-direction: row;
+  }
+
+  .sort-main {
     width: 70%;
-    max-width: 780px;
+    max-width: 850px;
+  }
+
+  .sort-aside {
+    width: 300px;
+    max-width: 300px;
+    margin-left: 20px;
+  }
+
+  .sort-warp {
+    width: 100%;
     margin: 0 auto;
     padding: 20px;
     border-radius: 10px;
@@ -159,7 +206,7 @@
   }
 
   .article-wrap {
-    width: 70%;
+    width: 100%;
     margin: 40px auto;
     min-height: 600px;
   }
@@ -191,6 +238,24 @@
     box-shadow: 0 0 5px var(--themeBackground);
   }
 
+
+  @media screen and (max-width: 1000px) {
+    .sort-page-container {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .sort-main {
+      width: 100%;
+      max-width: unset;
+    }
+
+    .sort-aside {
+      width: 100%;
+      max-width: unset;
+      margin: 40px auto 0;
+    }
+  }
 
   @media screen and (max-width: 900px) {
     .sort-warp {
