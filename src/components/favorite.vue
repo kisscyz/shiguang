@@ -36,14 +36,6 @@
         <div v-if="$common.isEmpty(filteredNav)" class="nav-empty">
           没有找到「{{ searchKey }}」相关的工具，换个关键词试试
         </div>
-
-        <!-- 友人帐 -->
-        <div class="nav-category">
-          <div class="nav-category-title">
-            <span>👯 友人帐</span>
-          </div>
-          <friend></friend>
-        </div>
       </div>
     </div>
 
@@ -57,12 +49,10 @@
 <script>
 
   const myFooter = () => import( "./common/myFooter");
-  const friend = () => import( "./friend");
 
   export default {
     components: {
-      myFooter,
-      friend
+      myFooter
     },
 
     data() {
