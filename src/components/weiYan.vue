@@ -1,8 +1,14 @@
 <template>
   <div>
-    <!-- 两句诗 -->
-    <div class="my-animation-slide-top">
-      <twoPoem :isHitokoto="false"></twoPoem>
+    <div style="background: var(--background);padding: 25px 25px 0;">
+      <!-- 封面 -->
+      <div class="weiyan-header my-animation-slide-top">
+        <img class="index-video" :src="'./images/weiYan-banner-night-sky.jpg'" alt="记录"/>
+        <div class="weiyan-hero">
+          <div class="weiyan-hero-title">记录</div>
+          <div class="weiyan-hero-desc">微言小义 · 记录生活点滴</div>
+        </div>
+      </div>
     </div>
 
     <div style="background: var(--background);animation: hideToShow 2.5s">
@@ -49,7 +55,6 @@
 </template>
 
 <script>
-  const twoPoem = () => import( "./common/twoPoem");
   const myFooter = () => import( "./common/myFooter");
   const treeHole = () => import( "./common/treeHole");
   const proPage = () => import( "./common/proPage");
@@ -57,7 +62,6 @@
 
   export default {
     components: {
-      twoPoem,
       myFooter,
       treeHole,
       proPage,
@@ -199,5 +203,59 @@
 </script>
 
 <style scoped>
+
+  .weiyan-header {
+    margin: 35px auto 30px;
+    height: 330px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    max-width: 1200px;
+  }
+
+  .index-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .weiyan-hero {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    background: rgba(20, 40, 80, 0.25);
+  }
+
+  .weiyan-hero-title {
+    font-size: 38px;
+    font-weight: bold;
+    letter-spacing: 8px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  .weiyan-hero-desc {
+    margin-top: 10px;
+    font-size: 14px;
+    opacity: 0.9;
+    letter-spacing: 2px;
+  }
+
+  @media screen and (max-width: 800px) {
+    .weiyan-header {
+      height: 260px;
+      margin: 40px 12px 20px;
+    }
+
+    .weiyan-hero-title {
+      font-size: 30px;
+    }
+  }
 
 </style>

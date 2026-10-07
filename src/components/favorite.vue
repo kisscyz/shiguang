@@ -4,7 +4,7 @@
       <!-- 封面 -->
       <div class="favorite-header my-animation-slide-top">
         <!-- 背景图片（纯静态版：原视频资源缺失，改用本地横幅图） -->
-        <img class="index-video" :src="'./images/treasure/banner-bg.jpg'" alt="百宝箱"/>
+        <img class="index-video" :src="'./images/treasure/banner-night-town.jpg'" alt="百宝箱"/>
         <div class="nav-hero">
           <div class="nav-hero-title">百宝箱</div>
           <div class="nav-hero-desc">我的工具导航 · 好用的网站都在这里</div>

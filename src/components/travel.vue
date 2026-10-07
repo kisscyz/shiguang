@@ -4,7 +4,7 @@
       <!-- 封面 -->
       <div class="travel-header my-animation-slide-top">
         <!-- 背景图片（纯静态版：原视频资源缺失，改用本地横幅图） -->
-        <img class="index-video" :src="'./images/travel/hero-aurora.jpg'" alt="旅拍集"/>
+        <img class="index-video" :src="'./images/travel/banner-night-lake.jpg'" alt="旅拍集"/>
         <div style="position: absolute;left: 20px;top: 20px">
           <!-- 标题 -->
           <div style="margin: 10px">
