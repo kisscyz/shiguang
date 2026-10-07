@@ -10,10 +10,10 @@
       <!-- 内容页面 -->
       <template slot="body">
         <!-- 首页图片 -->
-        <el-image style="animation: header-effect 2s"
+        <el-image v-if="!$common.isEmpty($store.state.webInfo.backgroundImage) || !$common.isEmpty($store.state.webInfo.randomCover)"
+                  style="animation: header-effect 2s"
                   class="background-image-index"
                   v-once
-                  lazy
                   :src="!$common.isEmpty($store.state.webInfo.backgroundImage)?$store.state.webInfo.backgroundImage:$store.state.webInfo.randomCover[Math.floor(Math.random() * $store.state.webInfo.randomCover.length)]"
                   fit="cover">
           <div slot="error" class="image-slot background-image-index-error"></div>

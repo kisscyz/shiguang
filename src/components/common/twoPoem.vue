@@ -2,7 +2,8 @@
   <div class="poem-container myCenter my-animation-hideToShow"
        v-if="!$common.isEmpty(guShi.origin) || !$common.isEmpty(hitokoto.hitokoto)">
     <!-- 背景图片 -->
-    <el-image class="my-el-image poem-image"
+    <el-image v-if="!$common.isEmpty($store.state.webInfo.randomCover)"
+              class="my-el-image poem-image"
               style="position: absolute;margin-top: -50px"
               v-once
               lazy

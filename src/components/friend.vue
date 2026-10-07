@@ -3,13 +3,14 @@
     <div class="friend-wrap">
       <div class="friend-main">
         <!-- 添加友链 -->
-        <div @click="clickLetter()" class="form-wrap">
-          <!-- 信封上面 -->
-          <img class="before-img" :src="$store.state.sysConfig['webStaticResourcePrefix'] + 'assets/friendLetterTop.png'" style="width: 100%"/>
-          <!-- 信 -->
-          <div class="envelope" style="animation: hideToShow 2s">
+        <div class="form-wrap-new">
+          <div v-if="!letterOpen" class="letter-cover" @click="letterOpen = true">
+            <div class="letter-cover-emoji">✉️</div>
+            <div class="letter-cover-title">有朋自远方来</div>
+            <div class="letter-cover-hint">点击写信，申请交换友链</div>
+          </div>
+          <div v-else class="letter-paper my-animation-slide-bottom">
             <div class="form-main">
-              <img :src="$store.state.sysConfig['webStaticResourcePrefix'] + 'assets/friendLetterMiddle.jpg'" style="width: 100%"/>
               <div>
                 <h3 style="text-align: center">有朋自远方来</h3>
                 <div>
@@ -43,14 +44,10 @@
                     </proButton>
                   </div>
                 </div>
-                <div>
-                  <img :src="$store.state.sysConfig['webStaticResourcePrefix'] + 'assets/friendLetterBiLi.png'" style="width: 100%;margin: 5px auto"/>
-                </div>
-                <p style="font-size: 12px;text-align: center;color: #999">欢迎交换友链</p>
+                <p class="letter-foot">欢迎交换友链</p>
               </div>
             </div>
           </div>
-          <img class="after-img" :src="$store.state.sysConfig['webStaticResourcePrefix'] + 'assets/friendLetterBottom.png'" style="width: 100%"/>
         </div>
 
         <div style="font-size: 20px;font-weight: bold;margin-top: 40px">🌸本站信息</div>
@@ -98,6 +95,7 @@
 
     data() {
       return {
+        letterOpen: false,
         friendList: {},
         friend: {
           title: "",
@@ -121,13 +119,6 @@
     },
 
     methods: {
-      clickLetter() {
-        if (document.body.clientWidth < 700) {
-          $(".form-wrap").css({"height": "1000px", "top": "-200px"});
-        } else {
-          $(".form-wrap").css({"height": "1150px", "top": "-200px"});
-        }
-      },
       submitFriend() {
         if (this.$common.isEmpty(this.$store.state.currentUser)) {
           this.$message({
@@ -253,6 +244,60 @@
     transition: all 1s ease-in-out .3s;
     z-index: 0;
     cursor: pointer;
+  }
+
+  /* 纯静态版：信封申请改为卡片式 */
+  .form-wrap-new {
+    margin: 0 auto;
+    max-width: 560px;
+  }
+
+  .letter-cover {
+    cursor: pointer;
+    text-align: center;
+    padding: 48px 20px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #fff5f7 0%, #f0f7ff 100%);
+    border: 2px dashed var(--lightGreen);
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+
+  .letter-cover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .letter-cover-emoji {
+    font-size: 56px;
+    line-height: 1;
+  }
+
+  .letter-cover-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 14px;
+    letter-spacing: 4px;
+  }
+
+  .letter-cover-hint {
+    color: #999;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .letter-paper {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 28px 24px 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  .letter-foot {
+    font-size: 12px;
+    text-align: center;
+    color: #999;
+    margin: 12px 0 0;
   }
 
 

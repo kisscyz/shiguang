@@ -1,10 +1,10 @@
 <template>
   <div>
     <div>
-      <el-image style="animation: header-effect 2s"
+      <el-image v-if="!$common.isEmpty($store.state.webInfo.randomCover)"
+                style="animation: header-effect 2s"
                 class="background-image"
                 v-once
-                lazy
                 :src="$store.state.webInfo.randomCover[Math.floor(Math.random() * $store.state.webInfo.randomCover.length)]"
                 fit="cover">
         <div slot="error" class="image-slot background-image-error"></div>

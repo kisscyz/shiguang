@@ -612,12 +612,15 @@ const db = {
 
   listFriend() {
     const stored = lsGet("db_friends", null);
-    return stored !== null ? stored : friendSeeds.slice();
+    const list = stored !== null ? stored : friendSeeds.slice();
+    // 模板按 friendList['🥇友情链接'] / friendList['♥️青出于蓝'] 取值
+    return { "🥇友情链接": list, "♥️青出于蓝": [] };
   },
 
   saveFriend(params) {
     params = params || {};
-    const list = this.listFriend();
+    const stored = lsGet("db_friends", null);
+    const list = stored !== null ? stored : friendSeeds.slice();
     list.push({
       id: Date.now(),
       cover: params.cover || AVATAR,
