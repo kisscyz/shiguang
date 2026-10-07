@@ -1,26 +1,15 @@
 <template>
   <div>
-    <div class="travel-container">
-      <!-- 封面 -->
-      <div class="travel-header my-animation-slide-top">
-        <!-- 背景图片（纯静态版：原视频资源缺失，改用本地横幅图） -->
-        <img class="index-video" :src="'./images/travel/banner-night-lake.jpg'" alt="旅拍集"/>
-        <div style="position: absolute;left: 20px;top: 20px">
-          <!-- 标题 -->
-          <div style="margin: 10px">
-            <div>
-              旅拍集
-            </div>
-            <div style="font-size: 36px;font-weight: bold;line-height: 1.5;margin-top: 20px">
-              这里是我的旅拍哦
-            </div>
-          </div>
-        </div>
-        <div style="position: absolute;left: 20px;bottom: 40px;margin: 10px">
-          每一张照片都是一次美好的记忆。
-        </div>
+    <!-- 封面：全屏通栏 -->
+    <div class="travel-banner my-animation-slide-top">
+      <img class="banner-img" :src="'./images/travel/banner-night-lake.jpg'" alt="旅拍集"/>
+      <div class="banner-hero">
+        <div class="banner-hero-title">旅拍集</div>
+        <div class="banner-hero-desc">这里是我的旅拍哦 · 每一张照片都是一次美好的记忆</div>
       </div>
+    </div>
 
+    <div class="travel-container">
       <div class="travel-content my-animation-slide-bottom">
         <!-- 标签 -->
         <div class="photo-title-warp" v-if="!$common.isEmpty(photoTitleList)">
@@ -162,22 +151,58 @@
     background: var(--favoriteBg);
   }
 
-  .travel-header {
-    margin: 60px auto 30px;
-    height: 300px;
+  .travel-banner {
+    width: 100%;
+    height: 50vh;
+    min-height: 320px;
     position: relative;
     overflow: hidden;
-    border-radius: 20px;
-    max-width: 1200px;
     color: var(--white);
     user-select: none;
   }
 
-  .index-video {
+  .banner-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    background: var(--lightGreen);
+  }
+
+  .banner-hero {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(20, 40, 80, 0.25);
+  }
+
+  .banner-hero-title {
+    font-size: 38px;
+    font-weight: bold;
+    letter-spacing: 8px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  .banner-hero-desc {
+    margin-top: 12px;
+    font-size: 14px;
+    opacity: 0.9;
+    letter-spacing: 2px;
+  }
+
+  @media screen and (max-width: 800px) {
+    .travel-banner {
+      height: 38vh;
+      min-height: 260px;
+    }
+
+    .banner-hero-title {
+      font-size: 30px;
+    }
   }
 
   .travel-content {

@@ -1,19 +1,19 @@
 <template>
   <div>
-    <div class="favorite-container">
-      <!-- 封面 -->
-      <div class="favorite-header my-animation-slide-top">
-        <!-- 背景图片（纯静态版：原视频资源缺失，改用本地横幅图） -->
-        <img class="index-video" :src="'./images/treasure/banner-night-town.jpg'" alt="百宝箱"/>
-        <div class="nav-hero">
-          <div class="nav-hero-title">百宝箱</div>
-          <div class="nav-hero-desc">我的工具导航 · 好用的网站都在这里</div>
-          <div class="nav-search">
-            <i class="el-icon-search"></i>
-            <input v-model="searchKey" placeholder="搜索工具，一触即达…" maxlength="20"/>
-          </div>
+    <!-- 封面：全屏通栏 -->
+    <div class="favorite-banner my-animation-slide-top">
+      <img class="banner-img" :src="'./images/treasure/banner-night-town.jpg'" alt="百宝箱"/>
+      <div class="nav-hero">
+        <div class="nav-hero-title">百宝箱</div>
+        <div class="nav-hero-desc">我的工具导航 · 好用的网站都在这里</div>
+        <div class="nav-search">
+          <i class="el-icon-search"></i>
+          <input v-model="searchKey" placeholder="搜索工具，一触即达…" maxlength="20"/>
         </div>
       </div>
+    </div>
+
+    <div class="favorite-container">
 
       <!-- 工具导航 -->
       <div class="nav-content my-animation-slide-bottom">
@@ -122,16 +122,16 @@
     background: var(--favoriteBg);
   }
 
-  .favorite-header {
-    margin: 60px auto 30px;
-    height: 330px;
+  .favorite-banner {
+    width: 100%;
+    height: 50vh;
+    min-height: 320px;
     position: relative;
     overflow: hidden;
-    border-radius: 20px;
-    max-width: 1200px;
+    user-select: none;
   }
 
-  .index-video {
+  .banner-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -316,9 +316,9 @@
       padding: 12px;
     }
 
-    .favorite-header {
-      height: 260px;
-      margin-top: 40px;
+    .favorite-banner {
+      height: 38vh;
+      min-height: 260px;
     }
 
     .nav-hero-title {

@@ -1,13 +1,11 @@
 <template>
   <div>
-    <div style="background: var(--background);padding: 25px 25px 0;">
-      <!-- 封面 -->
-      <div class="weiyan-header my-animation-slide-top">
-        <img class="index-video" :src="'./images/weiYan-banner-night-sky.jpg'" alt="记录"/>
-        <div class="weiyan-hero">
-          <div class="weiyan-hero-title">记录</div>
-          <div class="weiyan-hero-desc">微言小义 · 记录生活点滴</div>
-        </div>
+    <!-- 封面：全屏通栏 -->
+    <div class="weiyan-banner my-animation-slide-top">
+      <img class="banner-img" :src="'./images/weiYan-banner-night-sky.jpg'" alt="记录"/>
+      <div class="weiyan-hero">
+        <div class="weiyan-hero-title">记录</div>
+        <div class="weiyan-hero-desc">微言小义 · 记录生活点滴</div>
       </div>
     </div>
 
@@ -204,16 +202,16 @@
 
 <style scoped>
 
-  .weiyan-header {
-    margin: 35px auto 30px;
-    height: 330px;
+  .weiyan-banner {
+    width: 100%;
+    height: 50vh;
+    min-height: 320px;
     position: relative;
     overflow: hidden;
-    border-radius: 20px;
-    max-width: 1200px;
+    user-select: none;
   }
 
-  .index-video {
+  .banner-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -248,9 +246,9 @@
   }
 
   @media screen and (max-width: 800px) {
-    .weiyan-header {
-      height: 260px;
-      margin: 40px 12px 20px;
+    .weiyan-banner {
+      height: 38vh;
+      min-height: 260px;
     }
 
     .weiyan-hero-title {
