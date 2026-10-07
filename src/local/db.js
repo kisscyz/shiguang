@@ -105,7 +105,7 @@ const articles = [
   {
     id: 101,
     articleTitle: "春山夜行，灯火如星",
-    articleCover: "./images/album/zhangjiajie.jpg",
+    articleCover: "./images/essays/cover-night-mountains.jpg",
     articleContent: "春山夜行，灯火如星。\n\n春夜游过山间，灯火如繁星点点，夜色渐深，松涛与溪水交响，静听自然的低语。\n\n> 有些路，一个人走反而更清楚自己要去哪。\n\n📍 山间 · 心情：平静",
     username: "拾光",
     userId: 1,
@@ -125,7 +125,7 @@ const articles = [
   {
     id: 102,
     articleTitle: "雨后西湖，适合发呆",
-    articleCover: "./images/album/xiamen.jpg",
+    articleCover: "./images/essays/cover-west-lake.jpg",
     articleContent: "雨后西湖，适合发呆。\n\n雨停了，巷子里的青石板泛着潮湿的光，茶烟从屋檐缝隙升起。\n\n> 一个下午，一杯茶，什么都不做，也是一种抵达。\n\n📍 杭州 · 心情：放松",
     username: "拾光",
     userId: 1,
@@ -145,7 +145,7 @@ const articles = [
   {
     id: 103,
     articleTitle: "墨染秋叶，笔下闲云",
-    articleCover: "./images/album/kyoto.jpg",
+    articleCover: "./images/essays/cover-autumn-leaves.jpg",
     articleContent: "墨染秋叶，笔下闲云。\n\n秋叶渐染时，墨色也随之更深。于宣纸上一笔闲云，任它随风散去远方。\n\n> 写字和走路一样，慢下来才看得清。\n\n📍 书房 · 心情：专注",
     username: "拾光",
     userId: 1,
@@ -165,7 +165,7 @@ const articles = [
   {
     id: 104,
     articleTitle: "整理旧照片",
-    articleCover: "./images/album/shanghai.jpg",
+    articleCover: "./images/essays/cover-old-photos.jpg",
     articleContent: "整理旧照片，发现三年前的自己站在同一座山前，笑得没心没肺。\n\n山还是那座山，人已经走了很远。\n\n> 挺好的。\n\n📍 相册 · 心情：怀旧",
     username: "拾光",
     userId: 1,
@@ -185,7 +185,7 @@ const articles = [
   {
     id: 105,
     articleTitle: "楼下的桂花开了",
-    articleCover: "./images/hero-banner.jpg",
+    articleCover: "./images/essays/cover-osmanthus.jpg",
     articleContent: "楼下的桂花开了，香气拐着弯钻进窗户。\n\n决定今晚不加班，去江边走一走。\n\n> 生活偶尔也需要一点不务正业。\n\n📍 江边 · 心情：愉悦",
     username: "拾光",
     userId: 1,
@@ -205,7 +205,7 @@ const articles = [
   {
     id: 106,
     articleTitle: "极光之夜的后遗症",
-    articleCover: "./images/travel/hero-aurora.jpg",
+    articleCover: "./images/essays/cover-aurora.jpg",
     articleContent: "极光之夜的后遗症：看什么都觉得不够亮。\n\n回来一周了，梦里还是那片绿色的天。\n\n> 有些风景，看过就再也忘不掉。\n\n📍 挪威 · 心情：震撼",
     username: "拾光",
     userId: 1,
@@ -225,7 +225,7 @@ const articles = [
   {
     id: 201,
     articleTitle: "冰川极光：七日挪威峡湾徒步纪实",
-    articleCover: "./images/travel/hero-aurora.jpg",
+    articleCover: "./images/essays/cover-aurora.jpg",
     articleContent: "## 行程概览\n\n当极光划破北极圈的夜空，吕瑟峡湾的冰川在星光下泛着冷调的蓝。七日徒步，穿越最震撼的峡湾线，从卑尔根出发，深入极地边缘，体验冰与光的诗篇。\n\n本次路线全长约 68 公里，海拔爬升 1200m，沿途经过冰川湖、雪山营地、古老渔村。我们选择三月出发，正值极光季高峰，夜晚气温 -8℃ 至 -2℃，日间晴好，适合徒步与摄影。\n\n## 徒步路线 & 每日记录\n\n- **Day 1.** 卑尔根 → 弗拉姆，冰川列车初体验\n- **Day 3.** 攀登布道石，悬崖日落\n- **Day 5.** 冰川宿营 & 极光守夜\n\n第三天是最难忘的一天。清晨五点出发，背着十五公斤的包，沿着之字形山路上行。下午四点登顶布道石时，云层正好裂开一道缝，阳光像舞台灯一样打在峡湾上，同行的人都安静了。\n\n## 极光观测与拍摄建议\n\n![第三天营地极光](./images/travel/fig-camp.jpg)\n\n- **最佳观测时间：** 23:00–02:00，避开月光，KP 值 ≥ 4 时成功率更高。\n- **摄影参数：** ISO 1600–3200，f/2.8，快门 15–20 秒，三脚架必备。\n- **推荐设备：** 广角镜头 14–24mm，防寒电池保温套。\n\n## 装备清单与保暖指南\n\n三层穿衣是铁律：排汗内衣 + 抓绒中间层 + 防风冲锋衣。手套备两副（一薄一厚），帽子遮住耳朵，暖宝宝贴满鞋垫。极寒下手机半小时就关机，充电宝贴身放，用保温套裹住相机电池。\n\n## 摄影技巧 & 相机设置\n\n手动对焦拧到无穷远再回拨一点，用实时取景放大星星确认合焦。前景找个小木屋或枯树做剪影，画面立刻有故事。别只顾拍——留十分钟给自己，躺下来看极光在头顶流动。\n\n## 安全提示 & 当地注意\n\n布道石一带无护栏，风大时贴着内侧走；冰川行走务必跟向导，不要独自上冰。挪威商店周日大多关门，补给提前买好。\n\n> 最后一晚，极光如期而至——所有的寒冷和疲惫都值得。",
     username: "拾光",
     userId: 1,
