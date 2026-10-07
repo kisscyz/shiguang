@@ -2,8 +2,8 @@
   <div>
     <!-- el过渡动画 -->
     <transition name="el-fade-in-linear">
-      <!-- 导航栏 -->
-      <div v-show="toolbar.visible || ($common.mobile() || mobile)"
+      <!-- 导航栏：固定在顶部，滚动时保持显示 -->
+      <div v-show="true"
            @mouseenter="hoverEnter = true"
            @mouseleave="hoverEnter = false"
            :class="[{ enter: toolbar.enter }, { hoverEnter: (hoverEnter || this.$route.path === '/favorite' || this.$route.path === '/travel') && !toolbar.enter }]"
