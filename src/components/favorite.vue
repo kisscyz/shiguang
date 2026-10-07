@@ -5,94 +5,43 @@
       <div class="favorite-header my-animation-slide-top">
         <!-- 背景图片（纯静态版：原视频资源缺失，改用本地横幅图） -->
         <img class="index-video" :src="'./images/treasure/banner-bg.jpg'" alt="百宝箱"/>
-        <div style="position: absolute;left: 0;top: 0;padding: 5px 20px">
-          <!-- 标题 -->
-          <div style="color: var(--white);margin: 0 10px">
-            <div style="font-size: 30px;font-weight: bold;line-height: 2">
-              百宝箱
-            </div>
-          </div>
-          <div class="card-container">
-            <!-- 友人帐 -->
-            <div @click="changeFavorite(3)"
-                 class="card-item">
-              <div class="favorite-image"></div>
-              <div style="position: absolute;left: 0;top: 0;padding: 20px 25px 15px">
-                <div class="card-name">
-                  友人帐
-                </div>
-                <div class="card-desc">
-                  留下你的网站吧
-                </div>
-              </div>
-            </div>
-
-            <!-- 曲乐 -->
-            <div @click="changeFavorite(2)"
-                 class="card-item">
-              <div class="favorite-image"></div>
-              <div style="position: absolute;left: 0;top: 0;padding: 20px 25px 15px">
-                <div class="card-name">
-                  曲乐
-                </div>
-                <div class="card-desc">
-                  一曲肝肠断，天涯何处觅知音
-                </div>
-              </div>
-            </div>
-
-            <!-- 收藏夹 -->
-            <div @click="changeFavorite(1)"
-                 class="card-item">
-              <div class="favorite-image"></div>
-              <div style="position: absolute;left: 0;top: 0;padding: 20px 25px 15px">
-                <div class="card-name">
-                  收藏夹
-                </div>
-                <div class="card-desc">
-                  拾光小站的资源收藏
-                </div>
-              </div>
-            </div>
+        <div class="nav-hero">
+          <div class="nav-hero-title">百宝箱</div>
+          <div class="nav-hero-desc">我的工具导航 · 好用的网站都在这里</div>
+          <div class="nav-search">
+            <i class="el-icon-search"></i>
+            <input v-model="searchKey" placeholder="搜索工具，一触即达…" maxlength="20"/>
           </div>
         </div>
       </div>
 
-      <!-- 内容 -->
-      <div class="favorite-content">
-        <!-- 收藏夹 -->
-        <div v-show="card === 1 && !$common.isEmpty(collects)" class="my-animation-hideToShow">
-          <div v-for="(value, key) in collects" :key="key" style="margin-top: 20px">
-            <div class="collect-classify">
-              {{key}}
-            </div>
-            <div class="favorite-item-wrap">
-              <div v-for="(item, index) in value" :key="index" @click="toUrl(item.url)" class="favorite-item">
-                <div>
-                  <el-avatar class="favorite-item-image" :size="60"
-                             :src="item.cover">
-                  </el-avatar>
-                </div>
-                <div style="width: calc(100% - 80px)">
-                  <div class="favorite-item-title">
-                    {{item.title}}
-                  </div>
-                  <div class="favorite-item-introduction">
-                    {{item.introduction}}
-                  </div>
-                </div>
+      <!-- 工具导航 -->
+      <div class="nav-content my-animation-slide-bottom">
+        <div v-for="(tools, category) in filteredNav" :key="category" class="nav-category">
+          <div class="nav-category-title">
+            <span>{{ category }}</span>
+            <span class="nav-category-count">{{ tools.length }}</span>
+          </div>
+          <div class="nav-grid">
+            <div v-for="tool in tools" :key="tool.id" class="nav-card" @click="toUrl(tool.url)">
+              <div class="nav-card-icon" :style="{ background: tool.color }">{{ tool.emoji }}</div>
+              <div class="nav-card-body">
+                <div class="nav-card-name">{{ tool.title }}</div>
+                <div class="nav-card-desc">{{ tool.introduction }}</div>
               </div>
+              <i class="el-icon-top-right nav-card-arrow"></i>
             </div>
           </div>
         </div>
-
-        <!-- 曲乐 -->
-        <div v-show="card === 2" class="my-animation-hideToShow">
-          <funny></funny>
+        <div v-if="$common.isEmpty(filteredNav)" class="nav-empty">
+          没有找到「{{ searchKey }}」相关的工具，换个关键词试试
         </div>
 
         <!-- 友人帐 -->
-        <div v-show="card === 3" class="my-animation-hideToShow">
+        <div class="nav-category">
+          <div class="nav-category-title">
+            <span>👯 友人帐</span>
+          </div>
           <friend></friend>
         </div>
       </div>
@@ -108,29 +57,44 @@
 <script>
 
   const myFooter = () => import( "./common/myFooter");
-  const funny = () => import( "./funny");
   const friend = () => import( "./friend");
 
   export default {
     components: {
       myFooter,
-      funny,
       friend
     },
 
     data() {
       return {
-        card: null,
+        searchKey: "",
         collects: {}
       }
     },
 
-    computed: {},
+    computed: {
+      filteredNav() {
+        const key = (this.searchKey || "").trim().toLowerCase();
+        if (!key) {
+          return this.collects;
+        }
+        const result = {};
+        Object.keys(this.collects).forEach((category) => {
+          const matched = this.collects[category].filter((t) =>
+            (t.title + t.introduction).toLowerCase().indexOf(key) !== -1
+          );
+          if (matched.length > 0) {
+            result[category] = matched;
+          }
+        });
+        return result;
+      }
+    },
 
     watch: {},
 
     created() {
-      this.card = 3;
+      this.getCollect();
     },
 
     mounted() {
@@ -140,16 +104,8 @@
     methods: {
       toUrl(url) {
         if (!this.$common.isEmpty(url)) {
-          window.open(url);
+          window.open(url, "_blank");
         }
-      },
-      changeFavorite(card) {
-        if (card === 1) {
-          if (this.$common.isEmpty(this.collects)) {
-            this.getCollect(card);
-          }
-        }
-        this.card = card;
       },
       getCollect() {
         this.$http.get(this.$constant.baseURL + "/webInfo/listCollect")
@@ -191,163 +147,219 @@
     object-fit: cover;
   }
 
-  .favorite-image::before {
-    content: "";
+  .nav-hero {
     position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--translucent);
-  }
-
-  .card-container {
     display: flex;
-    flex-wrap: wrap;
-    margin-top: 60px;
-  }
-
-  .card-item {
-    transition: all 0.3s;
-    position: relative;
-    width: 250px;
-    height: 120px;
-    border-radius: 20px;
-    animation: hideToShow 1s ease-in-out;
-    cursor: pointer;
-    overflow: hidden;
-    margin: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     color: var(--white);
+    background: rgba(20, 40, 80, 0.25);
   }
 
-  .card-item:hover {
-    transform: translateY(-6px);
-  }
-
-  .card-name {
+  .nav-hero-title {
+    font-size: 38px;
     font-weight: bold;
-    font-size: 25px;
+    letter-spacing: 8px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
   }
 
-  .card-name:after {
-    top: 50px;
-    width: 22px;
-    left: 26px;
-    height: 2px;
-    background: var(--white);
-    content: "";
-    border-radius: 1px;
-    position: absolute;
-  }
-
-  .card-desc {
-    font-weight: bold;
-    margin-top: 15px;
-  }
-
-  .favorite-content {
-    margin: 0 auto;
-    max-width: 1200px;
-  }
-
-  .collect-classify {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-
-  .favorite-item-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: -10px;
-  }
-
-  .favorite-item {
-    transition: all 0.3s;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px -4px #2c2d300c;
-    background: var(--background);
-    display: flex;
-    width: calc(100% / 4 - 20px);
-    max-width: 320px;
-    height: 90px;
-    overflow: hidden;
-    padding: 15px;
-    cursor: pointer;
-    margin: 10px;
-  }
-
-  .favorite-item:hover {
-    background: #425AEF;
-    color: var(--white);
-  }
-
-  .favorite-item:hover .favorite-item-image {
-    transition: all 0.6s;
-    width: 0 !important;
-    height: 0 !important;
-    opacity: 0;
-    margin-right: 0;
-  }
-
-  .favorite-item:hover div:nth-child(2) {
-    width: 100% !important;
-  }
-
-  .favorite-item-image {
-    margin-right: 20px;
-    transition: all 0.3s;
-  }
-
-  .favorite-item-title {
-    font-size: 19px;
-    font-weight: bold;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    margin-bottom: 5px;
-  }
-
-  .favorite-item-introduction {
-    opacity: 0.7;
-    font-weight: bold;
-    letter-spacing: 1px;
+  .nav-hero-desc {
+    margin-top: 10px;
     font-size: 14px;
-    line-height: 1.2;
+    opacity: 0.9;
+    letter-spacing: 2px;
+  }
+
+  .nav-search {
+    margin-top: 22px;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 999px;
+    padding: 10px 20px;
+    width: min(420px, 80%);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+    color: var(--greyFont);
+  }
+
+  .nav-search input {
+    border: none;
+    outline: none;
+    background: transparent;
+    margin-left: 8px;
+    width: 100%;
+    font-size: 14px;
+    color: var(--black);
+  }
+
+  .nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 30px;
+  }
+
+  .nav-category {
+    margin-top: 34px;
+  }
+
+  .nav-category-title {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--black);
+    margin-bottom: 16px;
+    padding-left: 4px;
+  }
+
+  .nav-category-title::before {
+    content: "";
+    width: 5px;
+    height: 22px;
+    border-radius: 3px;
+    background: var(--themeBackground);
+    margin-right: 10px;
+  }
+
+  .nav-category-count {
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: normal;
+    color: var(--white);
+    background: var(--themeBackground);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+
+  .nav-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .nav-card {
+    display: flex;
+    align-items: center;
+    background: var(--white);
+    border-radius: 14px;
+    padding: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    position: relative;
+  }
+
+  .nav-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(46, 102, 255, 0.16);
+  }
+
+  .nav-card-icon {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+
+  .nav-card-body {
+    margin-left: 14px;
+    overflow: hidden;
+    width: calc(100% - 66px);
+  }
+
+  .nav-card-name {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--black);
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
   }
 
-  @media screen and (max-width: 906px) {
-    .card-container {
-      margin-top: 0;
+  .nav-card-desc {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--greyFont);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-card-arrow {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    color: var(--lightGray);
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .nav-card:hover .nav-card-arrow {
+    opacity: 1;
+  }
+
+  .nav-empty {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--greyFont);
+    font-size: 15px;
+  }
+
+  @media screen and (max-width: 1100px) {
+    .nav-grid {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
-  @media screen and (max-width: 906px) {
-    .favorite-item {
-      width: calc(100% / 3 - 20px);
+  @media screen and (max-width: 800px) {
+    .favorite-container {
+      padding: 12px;
     }
 
     .favorite-header {
-      height: 360px;
+      height: 260px;
+      margin-top: 40px;
+    }
+
+    .nav-hero-title {
+      font-size: 30px;
+    }
+
+    .nav-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .nav-card {
+      padding: 12px;
+    }
+
+    .nav-card-icon {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      font-size: 24px;
+      border-radius: 12px;
     }
   }
 
-  @media screen and (max-width: 636px) {
-    .favorite-item {
-      width: calc(100% / 2 - 20px);
+  @media screen and (max-width: 480px) {
+    .nav-grid {
+      grid-template-columns: 1fr 1fr;
     }
 
-    .favorite-header {
-      height: 500px;
-    }
-  }
-
-  @media screen and (max-width: 400px) {
-    .favorite-item {
-      width: calc(100% - 20px);
+    .nav-card-desc {
+      display: none;
     }
   }
 </style>

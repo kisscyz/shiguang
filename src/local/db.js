@@ -363,20 +363,54 @@ albumDefs.forEach((a) => {
 
 // ================= 8. 百宝箱 =================
 
+// 工具导航：分类 -> 工具列表（百宝箱页面渲染）
 const collects = {
-  "创作灵感": [
-    { id: 911, cover: "./images/treasure/icon-wand.png", title: "写作灵感库", introduction: "开头三行写不出？来这里抓一把灵感", url: "" },
-    { id: 912, cover: "./images/treasure/icon-doc.png", title: "读书笔记", introduction: "读过的书，划过的线，都在这里", url: "" },
-    { id: 913, cover: "./images/treasure/icon-cloud.png", title: "云端草稿本", introduction: "没写完的念头，先存在云里", url: "" }
+  "🔍 搜索资讯": [
+    { id: 911, emoji: "🔎", color: "#E8F1FF", title: "Bing", introduction: "清爽好用的搜索引擎", url: "https://www.bing.com" },
+    { id: 912, emoji: "🐾", color: "#E6F4EA", title: "百度", introduction: "中文搜索，资料全", url: "https://www.baidu.com" },
+    { id: 913, emoji: "💡", color: "#FFF4E0", title: "知乎", introduction: "有问题，上知乎", url: "https://www.zhihu.com" },
+    { id: 914, emoji: "📖", color: "#EDE7F6", title: "微信读书", introduction: "随时随地，免费阅读", url: "https://weread.qq.com" }
   ],
-  "影像美学": [
-    { id: 914, cover: "./images/treasure/icon-image.png", title: "图片素材库", introduction: "站内配图与摄影存档", url: "" },
-    { id: 915, cover: "./images/treasure/icon-palette.png", title: "配色灵感卡", introduction: "好看的配色，随手收录", url: "" },
-    { id: 916, cover: "./images/treasure/icon-layout.png", title: "摄影参数表", introduction: "拍星空、拍人像的参数备忘", url: "" }
+  "🛠️ 在线工具": [
+    { id: 915, emoji: "📤", color: "#E0F2F1", title: "奶牛快传", introduction: "大文件传输，不用登录", url: "https://cowtransfer.com" },
+    { id: 916, emoji: "📝", color: "#FFF8E1", title: "石墨文档", introduction: "在线文档，多人协作", url: "https://shimo.im" },
+    { id: 917, emoji: "🎨", color: "#FCE4EC", title: "Canva 可画", introduction: "海报封面，在线设计", url: "https://www.canva.cn" },
+    { id: 918, emoji: "🗜️", color: "#E8EAF6", title: "TinyPNG", introduction: "图片压缩，画质无损", url: "https://tinypng.com" }
   ],
-  "出行装备": [
-    { id: 917, cover: "./images/treasure/icon-seal.png", title: "旅行攻略集", introduction: "走过的路，整理成攻略", url: "" },
-    { id: 918, cover: "./images/treasure/icon-audio.png", title: "行李清单", introduction: "出发前照着打勾，少带不焦虑", url: "" }
+  "🌈 设计灵感": [
+    { id: 919, emoji: "📷", color: "#E1F5FE", title: "Unsplash", introduction: "免费高清摄影图库", url: "https://unsplash.com" },
+    { id: 920, emoji: "🖼️", color: "#F3E5F5", title: "Pexels", introduction: "免费图片和视频素材", url: "https://www.pexels.com" },
+    { id: 921, emoji: "🎯", color: "#FFF3E0", title: "Coolors", introduction: "一键生成好看配色", url: "https://coolors.co" },
+    { id: 922, emoji: "🏀", color: "#FCE4EC", title: "Dribbble", introduction: "全球设计师作品社区", url: "https://dribbble.com" }
+  ],
+  "💻 开发编程": [
+    { id: 923, emoji: "🐙", color: "#EDE7F6", title: "GitHub", introduction: "全球最大代码托管平台", url: "https://github.com" },
+    { id: 924, emoji: "📚", color: "#E8F5E9", title: "MDN", introduction: "Web 开发权威文档", url: "https://developer.mozilla.org" },
+    { id: 925, emoji: "💬", color: "#FFF8E1", title: "Stack Overflow", introduction: "程序员问答圣地", url: "https://stackoverflow.com" },
+    { id: 926, emoji: "🐢", color: "#E0F7FA", title: "菜鸟教程", introduction: "编程入门，简单易懂", url: "https://www.runoob.com" }
+  ],
+  "📚 学习成长": [
+    { id: 927, emoji: "📺", color: "#FCE4EC", title: "哔哩哔哩", introduction: "学习区藏龙卧虎", url: "https://www.bilibili.com" },
+    { id: 928, emoji: "🎓", color: "#E8EAF6", title: "中国大学MOOC", introduction: "名校课程，免费学习", url: "https://www.icourse163.org" },
+    { id: 929, emoji: "🌍", color: "#E3F2FD", title: "Coursera", introduction: "世界名校在线课程", url: "https://www.coursera.org" },
+    { id: 930, emoji: "🐍", color: "#FFFDE7", title: "廖雪峰的教程", introduction: "通俗易懂的技术教程", url: "https://www.liaoxuefeng.com" }
+  ],
+  "🤖 AI 工具": [
+    { id: 931, emoji: "✨", color: "#EDE7F6", title: "ChatGPT", introduction: "OpenAI 的对话 AI", url: "https://chat.openai.com" },
+    { id: 932, emoji: "🧠", color: "#FFF3E0", title: "Muse", introduction: "Anthropic 的智能助手", url: "https://claude.ai" },
+    { id: 933, emoji: "🎭", color: "#F3E5F5", title: "Midjourney", introduction: "AI 绘画，创意无限", url: "https://www.midjourney.com" },
+    { id: 934, emoji: "💭", color: "#E8F5E9", title: "文心一言", introduction: "百度的中文 AI 助手", url: "https://yiyan.baidu.com" }
+  ],
+  "🎬 娱乐休闲": [
+    { id: 935, emoji: "🎞️", color: "#E1F5FE", title: "豆瓣", introduction: "书影音评分社区", url: "https://www.douban.com" },
+    { id: 936, emoji: "🎵", color: "#FFEBEE", title: "网易云音乐", introduction: "听见好时光", url: "https://music.163.com" },
+    { id: 937, emoji: "🍠", color: "#FFF8E1", title: "小红书", introduction: "生活方式分享社区", url: "https://www.xiaohongshu.com" }
+  ],
+  "🧳 出行生活": [
+    { id: 938, emoji: "🗺️", color: "#E8F5E9", title: "高德地图", introduction: "导航出行，一路顺风", url: "https://www.amap.com" },
+    { id: 939, emoji: "🚄", color: "#E3F2FD", title: "12306", introduction: "火车票官方购票", url: "https://www.12306.cn" },
+    { id: 940, emoji: "✈️", color: "#FFF3E0", title: "携程", introduction: "机票酒店，一站预订", url: "https://www.ctrip.com" },
+    { id: 941, emoji: "🍜", color: "#FCE4EC", title: "大众点评", introduction: "吃喝玩乐，先看评价", url: "https://www.dianping.com" }
   ]
 };
 
