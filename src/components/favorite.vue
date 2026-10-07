@@ -4,7 +4,7 @@
       <!-- 封面 -->
       <div class="favorite-header my-animation-slide-top">
         <!-- 背景图片（纯静态版：原视频资源缺失，改用本地横幅图） -->
-        <img class="index-video" src="./images/treasure/banner-bg.jpg" alt="百宝箱"/>
+        <img class="index-video" :src="'./images/treasure/banner-bg.jpg'" alt="百宝箱"/>
         <div style="position: absolute;left: 0;top: 0;padding: 5px 20px">
           <!-- 标题 -->
           <div style="color: var(--white);margin: 0 10px">
