@@ -406,6 +406,14 @@
       changeMouseAnimation() {
         this.mouseAnimation = !this.mouseAnimation;
         if (this.mouseAnimation) {
+          if (typeof anime === "undefined") {
+            this.mouseAnimation = false;
+            this.$message({
+              message: "动画库加载失败，请刷新页面重试",
+              type: "warning"
+            });
+            return;
+          }
           this.$nextTick(() => {
             mousedown();
           });
